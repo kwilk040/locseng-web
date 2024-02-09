@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locseng-Web", "Locseng-Web\Locseng-Web.csproj", "{27F376CE-E011-4677-879A-98475872BD69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Indexer", "Indexer\Indexer.csproj", "{D79DCC38-5DB0-4B05-9A8C-F21839F92FAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Indexer.Tests", "Indexer.Tests\Indexer.Tests.csproj", "{917A2763-1E2D-4B55-AB03-2969F9F117CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{27F376CE-E011-4677-879A-98475872BD69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27F376CE-E011-4677-879A-98475872BD69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27F376CE-E011-4677-879A-98475872BD69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79DCC38-5DB0-4B05-9A8C-F21839F92FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79DCC38-5DB0-4B05-9A8C-F21839F92FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79DCC38-5DB0-4B05-9A8C-F21839F92FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79DCC38-5DB0-4B05-9A8C-F21839F92FAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{917A2763-1E2D-4B55-AB03-2969F9F117CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{917A2763-1E2D-4B55-AB03-2969F9F117CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{917A2763-1E2D-4B55-AB03-2969F9F117CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{917A2763-1E2D-4B55-AB03-2969F9F117CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

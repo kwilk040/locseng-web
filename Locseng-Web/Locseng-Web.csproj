@@ -8,4 +8,13 @@
         <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Indexer.Tests\Indexer.Tests.csproj" />
+      <ProjectReference Include="..\Indexer\Indexer.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
+    </ItemGroup>
+
 </Project>
