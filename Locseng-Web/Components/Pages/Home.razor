@@ -1,7 +1,39 @@
-﻿@page "/"
+@page "/"
+@using Indexer
+@inject Indexer Indexer
+@inject ILogger<Home> Logger
 
 <PageTitle>Home</PageTitle>
+<div class="search-wrapper">
+    <a class="index-link" href="/unimplemented">Index</a>
+    <div class="wrapper">
+        <img src="logo.gif" alt="logo"/>
+        <form method="post" @onsubmit="Submit" @formname="search-query">
+            <AntiforgeryToken></AntiforgeryToken>
+            <InputText @bind-Value="Query!.Value"></InputText>
+            <div class="search-buttons">
+                <button type="submit" id="search">Search</button>
+                @* TODO: needs workaround <button>I'm feeling lucky</button> *@
+            </div>
+        </form>
+    </div>
+</div>
 
-<h1>Hello, world!</h1>
+@code {
 
-Welcome to your new app.
+    [SupplyParameterFromForm] public SearchQuery? Query { get; set; }
+
+    protected override void OnInitialized() => Query ??= new SearchQuery();
+
+    private void Submit()
+    {
+        Logger.LogInformation($"Search query => {Query?.Value}");
+        var result = Indexer.QueryIndex(Query?.Value!);
+        result.ForEach(kvp => Logger.LogInformation($"{kvp.Key} : {kvp.Value}"));
+    }
+
+    public class SearchQuery
+    {
+        public string? Value { get; set; }
+    }
+}

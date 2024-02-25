@@ -12,6 +12,8 @@ public class Program
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
 
+        builder.Services.AddSingleton(Indexer.Indexer.Initialize());
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
