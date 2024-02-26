@@ -65,7 +65,6 @@
         SearchQueryFromResults ??= new ResultSearchQuery();
         if (SearchQuery == null) return;
         SearchQueryResults = Indexer.QueryIndex(SearchQuery);
-        SearchQueryResults.ForEach(kvp => Logger.LogInformation($"{kvp.Key} : {kvp.Value}"));
         SearchQueryFromResults.Value = SearchQuery;
     }
 
