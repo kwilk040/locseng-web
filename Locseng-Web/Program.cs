@@ -14,6 +14,8 @@ public class Program
 
         builder.Services.AddSingleton(Indexer.Indexer.Initialize());
 
+        builder.WebHost.UseStaticWebAssets();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
