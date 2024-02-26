@@ -3,7 +3,10 @@
 @page "/Results/{SearchQuery}"
 @inject Indexer.Indexer Indexer
 @inject ILogger<Results> Logger
-@inject NavigationManager NavManager; 
+@inject NavigationManager NavManager
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Results</PageTitle>
 
 <div class="results-wrapper">
     <a class="index-link" href="/unimplemented">Index</a>
@@ -23,17 +26,37 @@
         <ul>
             @foreach (var result in SearchQueryResults!)
             {
-                // TODO: implement downloading files
-                <li>@GenerateResultString(result)</li>
+                <a class="results" @onclick="() => Download(result.Key)">
+                    <li>@GenerateResultString(result)</li>
+                </a>
             }
         </ul>
     </div>
 </div>
 
+<script>
+    function DownloadFile(filename, contentType, data) {
+        const file = new File([data], filename, { type: contentType });
+        const exportUrl = URL.createObjectURL(file);
+        
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = exportUrl;
+        a.download = filename;
+        a.target = "_self";
+        a.click();
+        
+        URL.revokeObjectURL(exportUrl);
+        a.remove();
+    }
+</script>
+
 @code {
     [Parameter] public string? SearchQuery { get; set; }
     private List<KeyValuePair<string, double>>? SearchQueryResults { get; set; }
     [SupplyParameterFromForm] private ResultSearchQuery? SearchQueryFromResults { get; set; }
+    const string ContentType = "application/octet-stream";
+
 
     protected override void OnInitialized()
     {
@@ -59,6 +82,15 @@
     private class ResultSearchQuery
     {
         public string? Value { get; set; }
+    }
+
+    private async void Download(string filePath)
+    {
+        var strings = filePath.Split("/");
+        var fileName = strings[^1];
+        var readAllBytes = await File.ReadAllBytesAsync(filePath);
+
+        await JsRuntime.InvokeVoidAsync("DownloadFile", fileName, ContentType, readAllBytes);
     }
 
 }

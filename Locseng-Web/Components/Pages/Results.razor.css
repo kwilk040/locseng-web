@@ -68,3 +68,8 @@
         }
     }
 }
+
+.results {
+    cursor: pointer;
+    color: #e0def4;
+}
