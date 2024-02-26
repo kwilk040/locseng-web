@@ -1,5 +1,5 @@
 .results-wrapper {
-    width: 100%;
+    width: calc(100% - 6em);
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: 100px;
