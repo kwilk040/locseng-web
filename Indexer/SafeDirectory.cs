@@ -10,7 +10,7 @@ namespace Indexer;
 /// </summary>
 internal class SafeDirectory : IEnumerable<FileSystemInfo>
 {
-    private static readonly Logger Logger = new LoggerConfiguration().WriteTo.File("log.txt").CreateLogger();
+    private static readonly Logger Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
     private readonly DirectoryInfo _root;
     private readonly IList<string> _patterns;

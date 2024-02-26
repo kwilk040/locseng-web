@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;
 
@@ -9,7 +10,7 @@ namespace Indexer;
 /// </summary>
 public class Indexer
 {
-    private static readonly Logger Logger = new LoggerConfiguration().WriteTo.File("log.txt").CreateLogger();
+    private static readonly Logger Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
     private readonly Index _index;
 
@@ -98,7 +99,7 @@ public class Indexer
     /// <returns>Paths and tf-idf rank related to them</returns>
     public List<KeyValuePair<string, double>> QueryIndex(string query)
     {
-        Logger.Information($"QUERY => {query}");
+        // Logger.Information($"QUERY => {query}");
         return _index.Search(query);
     }
 
@@ -123,7 +124,7 @@ public class Indexer
         const string filename = "index.json";
         Logger.Information($"Saving index to {filename}");
         var json = JsonConvert.SerializeObject(_index);
-        File.WriteAllText(filename, json);
+        File.WriteAllText(filename, json, Encoding.UTF8);
         Logger.Information("Index saved");
     }
 
