@@ -1,7 +1,6 @@
 @page "/"
-@using Indexer
-@inject Indexer Indexer
 @inject ILogger<Home> Logger
+@inject NavigationManager NavManager; 
 
 <PageTitle>Home</PageTitle>
 <div class="search-wrapper">
@@ -21,19 +20,19 @@
 
 @code {
 
-    [SupplyParameterFromForm] public SearchQuery? Query { get; set; }
+    [SupplyParameterFromForm] private SearchQuery? Query { get; set; }
 
     protected override void OnInitialized() => Query ??= new SearchQuery();
 
     private void Submit()
     {
         Logger.LogInformation($"Search query => {Query?.Value}");
-        var result = Indexer.QueryIndex(Query?.Value!);
-        result.ForEach(kvp => Logger.LogInformation($"{kvp.Key} : {kvp.Value}"));
+        NavManager.NavigateTo($"/Results/{Query?.Value}");
     }
 
-    public class SearchQuery
+    private class SearchQuery
     {
         public string? Value { get; set; }
     }
+
 }

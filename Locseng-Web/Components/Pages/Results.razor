@@ -1,0 +1,64 @@
+@rendermode InteractiveServer
+@page "/Results"
+@page "/Results/{SearchQuery}"
+@inject Indexer.Indexer Indexer
+@inject ILogger<Results> Logger
+@inject NavigationManager NavManager; 
+
+<div class="results-wrapper">
+    <a class="index-link" href="/unimplemented">Index</a>
+    <div class="logo">
+        <img src="logo.gif" alt="" style="text-align: center">
+    </div>
+    <div class="search-form">
+        <form method="post" @onsubmit="Submit" @formname="results-search-query">
+            <AntiforgeryToken></AntiforgeryToken>
+            <InputText @bind-Value="SearchQueryFromResults!.Value"></InputText>
+            <button>Search</button>
+        </form>
+    </div>
+    <div>
+    </div>
+    <div class="content">
+        <ul>
+            @foreach (var result in SearchQueryResults!)
+            {
+                // TODO: implement downloading files
+                <li>@GenerateResultString(result)</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string? SearchQuery { get; set; }
+    private List<KeyValuePair<string, double>>? SearchQueryResults { get; set; }
+    [SupplyParameterFromForm] private ResultSearchQuery? SearchQueryFromResults { get; set; }
+
+    protected override void OnInitialized()
+    {
+        SearchQueryResults ??= [];
+        SearchQueryFromResults ??= new ResultSearchQuery();
+        if (SearchQuery == null) return;
+        SearchQueryResults = Indexer.QueryIndex(SearchQuery);
+        SearchQueryResults.ForEach(kvp => Logger.LogInformation($"{kvp.Key} : {kvp.Value}"));
+        SearchQueryFromResults.Value = SearchQuery;
+    }
+
+    private void Submit()
+    {
+        Logger.LogInformation($"Search query => {SearchQueryFromResults?.Value}");
+        NavManager.NavigateTo($"/Results/{SearchQueryFromResults?.Value}");
+    }
+
+    private static string GenerateResultString(KeyValuePair<string, double> result)
+    {
+        return $"{result.Key} : {result.Value}";
+    }
+
+    private class ResultSearchQuery
+    {
+        public string? Value { get; set; }
+    }
+
+}
