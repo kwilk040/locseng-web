@@ -22,7 +22,7 @@
         <ul>
             @foreach (var path in Indexer.GetDirectories())
             {
-                <li>
+                <li class="result">
                     <label>@path</label>
                     <button @onclick="() => Remove(path)">Remove</button>
                 </li>

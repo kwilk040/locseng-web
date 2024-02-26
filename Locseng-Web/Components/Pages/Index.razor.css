@@ -1,15 +1,17 @@
 .index-wrapper {
     width: calc(100% - 6em);
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 100px;
+    display: flex;
+    flex-direction: column;
     gap: 1em;
-    justify-items: left;
+    padding-top: 1em;
+    justify-content: center;
     align-items: center;
-    margin: 1em 5em 1em 1em;
+    transition: all 1s;
+    
 
     .index-content {
-        align-self: flex-start;
+        justify-content: center;
+        align-items: center;
         margin-top: 1em;
 
         ul {
@@ -41,6 +43,8 @@
 
     form {
         display: flex;
+        justify-items: center;
+        justify-content: center;
         gap: 1em;
 
         input {
@@ -71,12 +75,24 @@
             height: 36px;
             line-height: 27px;
             text-align: center;
-            font-family: arial, sans-serif;;
-
+            font-family: arial, sans-serif;
         }
 
         button:hover {
             border: 1px solid #393552;
         }
+    }
+}
+
+.result {
+    display: grid;
+
+    label {
+        text-align: center;
+    }
+    
+    button {
+        width: 10em;
+        margin-inline: auto;
     }
 }
