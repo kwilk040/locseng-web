@@ -1,0 +1,60 @@
+@rendermode InteractiveServer
+@page "/Index"
+@inject Indexer.Indexer Indexer
+
+<PageTitle>Index</PageTitle>
+
+
+<div class="index-wrapper">
+    <a class="index-link" href="/">Search</a>
+    <div class="add-path-form">
+        <form method="post" @onsubmit="Add" @formname="add-path-form">
+            <AntiforgeryToken></AntiforgeryToken>
+            <InputText placeholder="path" @bind-Value="AddToIndex!.Path"></InputText>
+            <button>Add</button>
+        </form>
+    </div>
+    <div>
+    </div>
+    <div>
+    </div>
+    <div class="index-content">
+        <ul>
+            @foreach (var path in Indexer.GetDirectories())
+            {
+                <li>
+                    <label>@path</label>
+                    <button @onclick="() => Remove(path)">Remove</button>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+@code {
+
+    [SupplyParameterFromForm] private AddPathToIndex? AddToIndex { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AddToIndex ??= new AddPathToIndex();
+    }
+
+
+    private void Add()
+    {
+        Indexer.AddDirectory(AddToIndex?.Path!);
+    }
+
+    private void Remove(string path)
+    {
+        Indexer.RemoveDirectory(path);
+    }
+
+    public class AddPathToIndex
+    {
+        public string? Path { get; set; }
+    }
+
+}
