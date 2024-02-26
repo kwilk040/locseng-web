@@ -23,11 +23,12 @@
     <div>
     </div>
     <div class="content">
+        <p style="color: #6e6a86">@ResultCount(SearchQueryResults!)</p>
         <ul>
             @foreach (var result in SearchQueryResults!)
             {
                 <a class="results" @onclick="() => Download(result.Key)">
-                    <li>@GenerateResultString(result)</li>
+                    <li>@result.Key : @result.Value</li>
                 </a>
             }
         </ul>
@@ -74,16 +75,6 @@
         NavManager.NavigateTo($"/Results/{SearchQueryFromResults?.Value}");
     }
 
-    private static string GenerateResultString(KeyValuePair<string, double> result)
-    {
-        return $"{result.Key} : {result.Value}";
-    }
-
-    private class ResultSearchQuery
-    {
-        public string? Value { get; set; }
-    }
-
     private async void Download(string filePath)
     {
         var strings = filePath.Split("/");
@@ -91,6 +82,16 @@
         var readAllBytes = await File.ReadAllBytesAsync(filePath);
 
         await JsRuntime.InvokeVoidAsync("DownloadFile", fileName, ContentType, readAllBytes);
+    }
+
+    private static string ResultCount(List<KeyValuePair<string, double>> results)
+    {
+        return results.Count == 0 ? "No results" : $"{results.Count()} results";
+    }
+
+    private class ResultSearchQuery
+    {
+        public string? Value { get; set; }
     }
 
 }

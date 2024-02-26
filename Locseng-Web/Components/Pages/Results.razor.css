@@ -36,7 +36,7 @@
             padding: .25em 1em;
             font-family: arial, sans-serif;
             text-align: left;
-            background-color: #414245;
+            background-color: #393552;
             border-radius: 1em;
             border: 0;
             color: #e0def4;
@@ -51,11 +51,11 @@
 
         button {
             box-sizing: border-box;
-            background-color: #303134;
+            background-color: #2a273f;
             border-radius: 4px;
             border: 1px solid transparent;
             padding: .25em 1em;
-            color: #e8eaed;
+            color: #e0def4;
             height: 36px;
             line-height: 27px;
             text-align: center;
